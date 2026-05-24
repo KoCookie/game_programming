@@ -4,21 +4,22 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Level Objects")]
-    public GameObject gridLevel1;
-    public GameObject mapObjectsLevel1;
-    public GameObject gridLevel2;
-    public GameObject mapObjectsLevel2;
-
-    private GameObject currentGrid;
-    private GameObject currentMapObjects;
+    [Header("Level Loader")]
+    public LevelLoader levelLoader;
 
     [Header("UI")]
+    public GameObject legendPanel;
     public TMP_Text timerText;
     public TMP_Text phaseText;
     public GameObject viewMapButton;
     public GameObject keyStatusIcon;
-    public GameObject[] lifeIcons;
+    public Transform lifePanel;
+    public GameObject lifeIconPrefab;
+    private GameObject[] lifeIcons;
+
+    [Header("Result Panels")]
+    public GameObject winPanel;
+    public GameObject losePanel;
 
     [Header("Player")]
     public PlayerController playerController;
@@ -31,57 +32,31 @@ public class GameManager : MonoBehaviour
 
     private bool hasKey = false;
     private bool gameEnded = false;
-
-    [Header("Result Panels")]
-    public GameObject winPanel;
-    public GameObject losePanel;
+    public LegendManager legendManager;
 
     void Start()
     {
-        SetupLevel();
+        LevelData loadedLevel = levelLoader.LoadCurrentLevel();
+        playerController = levelLoader.spawnedPlayer;
+        legendManager.BuildLegend(loadedLevel);
+
+        observationTime = loadedLevel.observationTime;
+        lives = loadedLevel.lives;
+        viewMapUses = loadedLevel.viewMapUses;
+        viewMapDuration = loadedLevel.viewMapDuration;
 
         hasKey = false;
         gameEnded = false;
 
-        if (keyStatusIcon != null)
-            keyStatusIcon.SetActive(false);
+        if (keyStatusIcon != null) keyStatusIcon.SetActive(false);
+        if (viewMapButton != null) viewMapButton.SetActive(false);
+        if (winPanel != null) winPanel.SetActive(false);
+        if (losePanel != null) losePanel.SetActive(false);
 
-        if (viewMapButton != null)
-            viewMapButton.SetActive(false);
-
-        if (winPanel != null)
-            winPanel.SetActive(false);
-
-        if (losePanel != null)
-            losePanel.SetActive(false);
-
+        CreateLifeIcons();
         UpdateLifeUI();
 
         StartCoroutine(ObservationPhase());
-    }
-
-    void SetupLevel()
-    {
-        gridLevel1.SetActive(false);
-        mapObjectsLevel1.SetActive(false);
-        gridLevel2.SetActive(false);
-        mapObjectsLevel2.SetActive(false);
-
-        if (LevelManager.selectedLevel == 1)
-        {
-            currentGrid = gridLevel1;
-            currentMapObjects = mapObjectsLevel1;
-        }
-        else if (LevelManager.selectedLevel == 2)
-        {
-            currentGrid = gridLevel2;
-            currentMapObjects = mapObjectsLevel2;
-        }
-
-        currentGrid.SetActive(true);
-        currentMapObjects.SetActive(true);
-
-        playerController.gridRoot = currentGrid.transform;
     }
 
     IEnumerator ObservationPhase()
@@ -98,22 +73,23 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        timerText.text = "0";
+        timerText.text = "";
 
         HideMapObjects();
+
+        if (legendPanel != null)
+            legendPanel.SetActive(false);
 
         phaseText.text = "ACTION PHASE";
         playerController.EnableMovement();
 
         if (viewMapButton != null && viewMapUses > 0)
             viewMapButton.SetActive(true);
-
-        Debug.Log("Action Phase Started");
     }
 
     void HideMapObjects()
     {
-        SpriteRenderer[] renderers = currentMapObjects.GetComponentsInChildren<SpriteRenderer>(true);
+        SpriteRenderer[] renderers = levelLoader.mapObjectsRoot.GetComponentsInChildren<SpriteRenderer>(true);
 
         foreach (SpriteRenderer renderer in renderers)
         {
@@ -123,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     void ShowMapObjects()
     {
-        SpriteRenderer[] renderers = currentMapObjects.GetComponentsInChildren<SpriteRenderer>(true);
+        SpriteRenderer[] renderers = levelLoader.mapObjectsRoot.GetComponentsInChildren<SpriteRenderer>(true);
 
         foreach (SpriteRenderer renderer in renderers)
         {
@@ -148,6 +124,9 @@ public class GameManager : MonoBehaviour
     {
         ShowMapObjects();
 
+        if (legendPanel != null)
+            legendPanel.SetActive(true);
+
         float timeLeft = viewMapDuration;
 
         while (timeLeft > 0)
@@ -157,9 +136,10 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        timerText.text = "0";
-
+        timerText.text = "";
         HideMapObjects();
+        if (legendPanel != null)
+            legendPanel.SetActive(false);
     }
 
     public void LoseLife()
@@ -167,8 +147,6 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
 
         lives--;
-        Debug.Log("Lives Left: " + lives);
-
         UpdateLifeUI();
 
         if (lives <= 0)
@@ -181,8 +159,6 @@ public class GameManager : MonoBehaviour
 
         if (keyStatusIcon != null)
             keyStatusIcon.SetActive(true);
-
-        Debug.Log("Key Collected");
     }
 
     public void ReachGoal()
@@ -197,12 +173,6 @@ public class GameManager : MonoBehaviour
 
             if (winPanel != null)
                 winPanel.SetActive(true);
-
-            Debug.Log("Player Wins");
-        }
-        else
-        {
-            Debug.Log("Need Key First");
         }
     }
 
@@ -214,21 +184,23 @@ public class GameManager : MonoBehaviour
 
         if (losePanel != null)
             losePanel.SetActive(true);
-
-        Debug.Log("Game Over");
     }
 
     void UpdateLifeUI()
     {
         for (int i = 0; i < lifeIcons.Length; i++)
         {
-            lifeIcons[i].SetActive(i < lives);
+            UnityEngine.UI.Image iconImage = lifeIcons[i].GetComponent<UnityEngine.UI.Image>();
+
+            if (iconImage != null)
+            {
+                iconImage.enabled = i < lives;
+            }
         }
     }
 
     public void RestartLevel()
     {
-        Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         );
@@ -236,18 +208,37 @@ public class GameManager : MonoBehaviour
 
     public void BackToLevelSelect()
     {
-        Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelectScene");
     }
 
     public void LoadNextLevel()
     {
-        Time.timeScale = 1f;
-
         LevelManager.selectedLevel++;
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         );
+    }
+    public void GainLife()
+    {
+        if (gameEnded) return;
+
+        lives++;
+        UpdateLifeUI();
+    }
+    void CreateLifeIcons()
+    {
+        foreach (Transform child in lifePanel)
+        {
+            Destroy(child.gameObject);
+        }
+
+        lifeIcons = new GameObject[lives];
+
+        for (int i = 0; i < lives; i++)
+        {
+            GameObject icon = Instantiate(lifeIconPrefab, lifePanel);
+            lifeIcons[i] = icon;
+        }
     }
 }

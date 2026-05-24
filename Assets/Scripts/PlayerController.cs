@@ -15,26 +15,6 @@ public class PlayerController : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        if (gridRoot == null)
-        {
-            Debug.LogError("Grid Root is not assigned!");
-            return;
-        }
-
-        foreach (Transform tile in gridRoot)
-        {
-            tileCenters.Add(tile.position);
-        }
-
-        if (tileCenters.Count == 0)
-        {
-            Debug.LogError("No tiles found under Grid Root!");
-            return;
-        }
-
-        currentTileCenter = FindClosestTile(transform.position);
-        transform.position = currentTileCenter;
-        CheckTileObject();
     }
 
     void Update()
@@ -122,5 +102,18 @@ public class PlayerController : MonoBehaviour
                 gameManager.ReachGoal();
             }
         }
+    }
+    public void InitializeGrid(Transform newGridRoot)
+    {
+        gridRoot = newGridRoot;
+        tileCenters.Clear();
+
+        foreach (Transform tile in gridRoot)
+        {
+            tileCenters.Add(tile.position);
+        }
+
+        currentTileCenter = FindClosestTile(transform.position);
+        transform.position = currentTileCenter;
     }
 }

@@ -14,4 +14,15 @@ public class LevelSelect : MonoBehaviour
         LevelManager.selectedLevel = 2;
         SceneManager.LoadScene("GameScene");
     }
+
+    public void LoadLevel3()
+    {
+        LevelManager.selectedLevel = 3;
+        SceneManager.LoadScene("GameScene");
+    }
+    public void LoadLevel4()
+    {
+        LevelManager.selectedLevel = 4;
+        SceneManager.LoadScene("GameScene");
+    }
 }

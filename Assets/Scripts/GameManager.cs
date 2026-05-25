@@ -242,4 +242,26 @@ public class GameManager : MonoBehaviour
             lifeIcons[i] = icon;
         }
     }
+
+    public void UsePortal(Vector3 currentPosition)
+    {
+        LevelData level = levelLoader.GetCurrentLevel();
+
+        if (!level.hasPortal) return;
+
+        Vector3 portalAWorld = levelLoader.GridToWorld(level.portalA);
+        Vector3 portalBWorld = levelLoader.GridToWorld(level.portalB);
+
+        float distanceToA = Vector3.Distance(currentPosition, portalAWorld);
+        float distanceToB = Vector3.Distance(currentPosition, portalBWorld);
+
+        if (distanceToA < distanceToB)
+        {
+            playerController.TeleportTo(portalBWorld);
+        }
+        else
+        {
+            playerController.TeleportTo(portalAWorld);
+        }
+    }
 }

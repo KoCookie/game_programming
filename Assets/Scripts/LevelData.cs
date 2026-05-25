@@ -21,8 +21,13 @@ public class LevelData : ScriptableObject
     public Vector2Int playerStart;
     public Vector2Int keyPosition;
     public Vector2Int goalPosition;
+
     public Vector2Int[] obstaclePositions;
     public Vector2Int[] heartPositions;
+
+    public bool hasPortal = false;
+    public Vector2Int portalA;
+    public Vector2Int portalB;
 
     public LegendItemType[] legendItems;
 

@@ -104,6 +104,12 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
+            else if (hit.CompareTag("Portal"))
+            {
+                gameManager.UsePortal(transform.position);
+                return;
+            }
+
             else if (hit.CompareTag("Goal"))
             {
                 gameManager.ReachGoal();
@@ -121,6 +127,11 @@ public class PlayerController : MonoBehaviour
         }
 
         currentTileCenter = FindClosestTile(transform.position);
+        transform.position = currentTileCenter;
+    }
+    public void TeleportTo(Vector3 targetPosition)
+    {
+        currentTileCenter = FindClosestTile(targetPosition);
         transform.position = currentTileCenter;
     }
 }

@@ -10,6 +10,8 @@ public class LevelLoader : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject keyPrefab;
     public GameObject goalPrefab;
+    public GameObject heartPrefab;
+    public GameObject portalPrefab;
 
     [Header("Scene Roots")]
     public Transform gridRoot;
@@ -18,7 +20,6 @@ public class LevelLoader : MonoBehaviour
     public PlayerController spawnedPlayer;
 
     private LevelData currentLevel;
-    public GameObject heartPrefab;
 
     public LevelData LoadCurrentLevel()
     {
@@ -72,6 +73,12 @@ public class LevelLoader : MonoBehaviour
             Instantiate(heartPrefab, GridToWorld(heartPosition), Quaternion.identity, mapObjectsRoot);
         }
 
+        if (currentLevel.hasPortal)
+        {
+            Instantiate(portalPrefab, GridToWorld(currentLevel.portalA), Quaternion.identity, mapObjectsRoot);
+            Instantiate(portalPrefab, GridToWorld(currentLevel.portalB), Quaternion.identity, mapObjectsRoot);
+        }
+
         Instantiate(keyPrefab, GridToWorld(currentLevel.keyPosition), Quaternion.identity, mapObjectsRoot);
         Instantiate(goalPrefab, GridToWorld(currentLevel.goalPosition), Quaternion.identity, mapObjectsRoot);
     }
@@ -88,11 +95,16 @@ public class LevelLoader : MonoBehaviour
         spawnedPlayer.InitializeGrid(gridRoot);
     }
 
-    Vector3 GridToWorld(Vector2Int gridPosition)
+    public Vector3 GridToWorld(Vector2Int gridPosition)
     {
         float offsetX = -(currentLevel.width - 1) / 2f;
         float offsetY = -(currentLevel.height - 1) / 2f;
 
         return new Vector3(offsetX + gridPosition.x, offsetY + gridPosition.y, 0);
+    }
+
+    public LevelData GetCurrentLevel()
+    {
+        return currentLevel;
     }
 }

@@ -288,15 +288,18 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: eaa1516ca767840f2859c393c735d676, type: 2}
   - {fileID: 11400000, guid: b94937807ae984d11ad07ccd3a758779, type: 2}
+  - {fileID: 11400000, guid: 47aba52d750614d7bb8b91bd61b57fba, type: 2}
+  - {fileID: 11400000, guid: 7d29c7c9f1a314f9ca58295f624a0567, type: 2}
   tilePrefab: {fileID: 4475090241070853710, guid: 417cf8947e7af465589630df08bf8db5, type: 3}
   obstaclePrefab: {fileID: 6270764860067504487, guid: abf089d7369b04db5ad0c495d309f954, type: 3}
   keyPrefab: {fileID: 8722164706484013466, guid: 459c4bb9435654d93936d85f968f17bc, type: 3}
   goalPrefab: {fileID: 313829687995147949, guid: df844bc34e9354927b94a6cba669b3b8, type: 3}
+  heartPrefab: {fileID: 6270764860067504487, guid: a04e378ef9d3c4c6aa3870e80b0306f1, type: 3}
+  portalPrefab: {fileID: 8722164706484013466, guid: af5bdbf7a82bb43df9516cbab3e8bdd6, type: 3}
   gridRoot: {fileID: 1823568980}
   mapObjectsRoot: {fileID: 620217580}
   playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
   spawnedPlayer: {fileID: 0}
-  heartPrefab: {fileID: 6270764860067504487, guid: a04e378ef9d3c4c6aa3870e80b0306f1, type: 3}
 --- !u!4 &165418698
 Transform:
   m_ObjectHideFlags: 0

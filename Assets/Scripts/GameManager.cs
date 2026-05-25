@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [Header("Settings")]
     public float observationTime = 5f;
     public int lives = 3;
+    public int maxLives = 5;
     public int viewMapUses = 1;
     public float viewMapDuration = 3f;
 

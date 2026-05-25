@@ -18,6 +18,7 @@ public class LevelLoader : MonoBehaviour
     public PlayerController spawnedPlayer;
 
     private LevelData currentLevel;
+    public GameObject heartPrefab;
 
     public LevelData LoadCurrentLevel()
     {
@@ -64,6 +65,11 @@ public class LevelLoader : MonoBehaviour
         foreach (Vector2Int obstaclePosition in currentLevel.obstaclePositions)
         {
             Instantiate(obstaclePrefab, GridToWorld(obstaclePosition), Quaternion.identity, mapObjectsRoot);
+        }
+
+        foreach (Vector2Int heartPosition in currentLevel.heartPositions)
+        {
+            Instantiate(heartPrefab, GridToWorld(heartPosition), Quaternion.identity, mapObjectsRoot);
         }
 
         Instantiate(keyPrefab, GridToWorld(currentLevel.keyPosition), Quaternion.identity, mapObjectsRoot);

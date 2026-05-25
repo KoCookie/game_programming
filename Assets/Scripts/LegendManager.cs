@@ -90,7 +90,7 @@ public class LegendManager : MonoBehaviour
                 return new Color(0.6f, 0f, 1f);
 
             case LegendItemType.Heart:
-                return Color.red;
+                return new Color(1f, 0.4f, 0.8f);
 
             default:
                 return Color.white;

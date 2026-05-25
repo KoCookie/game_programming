@@ -97,6 +97,13 @@ public class PlayerController : MonoBehaviour
                 hit.gameObject.SetActive(false);
             }
 
+            else if (hit.CompareTag("Heart"))
+            {
+                gameManager.GainLife();
+                hit.gameObject.SetActive(false);
+                return;
+            }
+
             else if (hit.CompareTag("Goal"))
             {
                 gameManager.ReachGoal();

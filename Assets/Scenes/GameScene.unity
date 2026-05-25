@@ -296,6 +296,7 @@ MonoBehaviour:
   mapObjectsRoot: {fileID: 620217580}
   playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
   spawnedPlayer: {fileID: 0}
+  heartPrefab: {fileID: 6270764860067504487, guid: a04e378ef9d3c4c6aa3870e80b0306f1, type: 3}
 --- !u!4 &165418698
 Transform:
   m_ObjectHideFlags: 0
@@ -934,8 +935,8 @@ MonoBehaviour:
   obstacleSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   keySprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   goalSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  portalSprite: {fileID: 0}
-  heartSprite: {fileID: 0}
+  portalSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  heartSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   itemSpacing: 42
 --- !u!4 &450517662
 Transform:
@@ -3377,9 +3378,10 @@ MonoBehaviour:
   lifeIconPrefab: {fileID: 6779260302625228130, guid: 55df5870ef30c4336865fd397fba0799, type: 3}
   winPanel: {fileID: 1647570643}
   losePanel: {fileID: 682552049}
-  playerController: {fileID: 0}
+  playerController: {fileID: 7102549242696397240, guid: b7052587769694ba299b63a1843ced76, type: 3}
   observationTime: 5
   lives: 3
+  maxLives: 5
   viewMapUses: 1
   viewMapDuration: 3
   legendManager: {fileID: 450517661}

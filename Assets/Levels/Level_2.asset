@@ -12,14 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_2
   m_EditorClassIdentifier: 
-  levelNumber: 0
+  levelNumber: 2
   width: 7
   height: 5
-  playerStart: {x: 0, y: 0}
+  playerStart: {x: 0, y: 4}
   keyPosition: {x: 0, y: 0}
-  goalPosition: {x: 0, y: 0}
-  obstaclePositions: []
-  observationTime: 5
+  goalPosition: {x: 5, y: 1}
+  obstaclePositions:
+  - {x: 0, y: 3}
+  - {x: 1, y: 1}
+  - {x: 2, y: 2}
+  - {x: 2, y: 4}
+  - {x: 4, y: 0}
+  - {x: 4, y: 1}
+  - {x: 4, y: 4}
+  - {x: 5, y: 2}
+  - {x: 6, y: 0}
+  - {x: 6, y: 4}
+  heartPositions:
+  - {x: 5, y: 4}
+  legendItems: 0000000001000000020000000300000005000000
+  observationTime: 8
   lives: 3
   viewMapUses: 1
   viewMapDuration: 3

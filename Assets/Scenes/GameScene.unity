@@ -296,9 +296,10 @@ MonoBehaviour:
   goalPrefab: {fileID: 313829687995147949, guid: df844bc34e9354927b94a6cba669b3b8, type: 3}
   heartPrefab: {fileID: 6270764860067504487, guid: a04e378ef9d3c4c6aa3870e80b0306f1, type: 3}
   portalPrefab: {fileID: 8722164706484013466, guid: af5bdbf7a82bb43df9516cbab3e8bdd6, type: 3}
+  trapObstaclePrefab: {fileID: 6270764860067504487, guid: c2d6f3c4a2a344e05bbd9e5222e8ff7a, type: 3}
+  playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
   gridRoot: {fileID: 1823568980}
   mapObjectsRoot: {fileID: 620217580}
-  playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
   spawnedPlayer: {fileID: 0}
 --- !u!4 &165418698
 Transform:
@@ -658,6 +659,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262511543}
   m_CullTransparentMesh: 1
+--- !u!1 &338991403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 338991405}
+  - component: {fileID: 338991404}
+  m_Layer: 0
+  m_Name: TrapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &338991404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338991403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff16e28b76f764c57b426891d9c67423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelLoader: {fileID: 165418697}
+  trapObstaclePrefab: {fileID: 6270764860067504487, guid: c2d6f3c4a2a344e05bbd9e5222e8ff7a, type: 3}
+  blinkInterval: 0.2
+  blinkTimes: 3
+--- !u!4 &338991405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338991403}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1024.1165, y: 438.2447, z: 2.5628042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &377453784
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,6 +3437,7 @@ MonoBehaviour:
   viewMapUses: 1
   viewMapDuration: 3
   legendManager: {fileID: 450517661}
+  trapManager: {fileID: 338991404}
 --- !u!1 &1971501820
 GameObject:
   m_ObjectHideFlags: 0
@@ -4148,3 +4198,4 @@ SceneRoots:
   - {fileID: 620217580}
   - {fileID: 165418698}
   - {fileID: 450517662}
+  - {fileID: 338991405}

@@ -10,6 +10,19 @@ public enum LegendItemType
     Heart
 }
 
+[System.Serializable]
+public class SpawnTrapData
+{
+    public Vector2Int appearPosition;
+}
+
+[System.Serializable]
+public class MoveTrapData
+{
+    public Vector2Int startPosition;
+    public Vector2Int endPosition;
+}
+
 [CreateAssetMenu(fileName = "LevelData", menuName = "Afterimage/Level Data")]
 public class LevelData : ScriptableObject
 {
@@ -35,4 +48,7 @@ public class LevelData : ScriptableObject
     public int lives = 3;
     public int viewMapUses = 1;
     public float viewMapDuration = 3f;
+
+    public SpawnTrapData[] spawnTraps;
+    public MoveTrapData[] moveTraps;
 }

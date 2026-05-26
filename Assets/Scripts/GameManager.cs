@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     private bool hasKey = false;
     private bool gameEnded = false;
     public LegendManager legendManager;
+    public TrapManager trapManager;
 
     void Start()
     {
@@ -80,6 +81,9 @@ public class GameManager : MonoBehaviour
 
         if (legendPanel != null)
             legendPanel.SetActive(false);
+        
+        if (trapManager != null)
+            trapManager.ActivateTraps();
 
         phaseText.text = "ACTION PHASE";
         playerController.EnableMovement();

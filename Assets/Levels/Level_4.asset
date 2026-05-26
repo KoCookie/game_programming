@@ -12,19 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_4
   m_EditorClassIdentifier: 
-  levelNumber: 0
-  width: 7
+  levelNumber: 4
+  width: 8
   height: 5
-  playerStart: {x: 0, y: 0}
-  keyPosition: {x: 0, y: 0}
-  goalPosition: {x: 0, y: 0}
-  obstaclePositions: []
-  heartPositions: []
-  hasPortal: 0
-  portalA: {x: 0, y: 0}
+  playerStart: {x: 6, y: 0}
+  keyPosition: {x: 0, y: 4}
+  goalPosition: {x: 7, y: 0}
+  obstaclePositions:
+  - {x: 6, y: 2}
+  - {x: 6, y: 4}
+  - {x: 5, y: 0}
+  - {x: 5, y: 1}
+  - {x: 3, y: 2}
+  - {x: 3, y: 4}
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
+  - {x: 0, y: 1}
+  heartPositions:
+  - {x: 5, y: 2}
+  hasPortal: 1
+  portalA: {x: 2, y: 3}
   portalB: {x: 0, y: 0}
-  legendItems: 
-  observationTime: 5
+  legendItems: 000000000100000002000000030000000400000005000000
+  observationTime: 8
   lives: 3
   viewMapUses: 1
   viewMapDuration: 3
+  spawnTraps:
+  - appearPosition: {x: 3, y: 3}
+  - appearPosition: {x: 3, y: 1}
+  moveTraps:
+  - startPosition: {x: 0, y: 3}
+    endPosition: {x: 1, y: 3}

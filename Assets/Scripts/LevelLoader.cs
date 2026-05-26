@@ -12,11 +12,12 @@ public class LevelLoader : MonoBehaviour
     public GameObject goalPrefab;
     public GameObject heartPrefab;
     public GameObject portalPrefab;
+    public GameObject trapObstaclePrefab;
+    public GameObject playerPrefab;
 
     [Header("Scene Roots")]
     public Transform gridRoot;
     public Transform mapObjectsRoot;
-    public GameObject playerPrefab;
     public PlayerController spawnedPlayer;
 
     private LevelData currentLevel;
@@ -63,14 +64,28 @@ public class LevelLoader : MonoBehaviour
 
     void GenerateObjects()
     {
-        foreach (Vector2Int obstaclePosition in currentLevel.obstaclePositions)
+        if (currentLevel.obstaclePositions != null)
         {
-            Instantiate(obstaclePrefab, GridToWorld(obstaclePosition), Quaternion.identity, mapObjectsRoot);
+            foreach (Vector2Int obstaclePosition in currentLevel.obstaclePositions)
+            {
+                Instantiate(obstaclePrefab, GridToWorld(obstaclePosition), Quaternion.identity, mapObjectsRoot);
+            }
         }
 
-        foreach (Vector2Int heartPosition in currentLevel.heartPositions)
+        if (currentLevel.heartPositions != null)
         {
-            Instantiate(heartPrefab, GridToWorld(heartPosition), Quaternion.identity, mapObjectsRoot);
+            foreach (Vector2Int heartPosition in currentLevel.heartPositions)
+            {
+                Instantiate(heartPrefab, GridToWorld(heartPosition), Quaternion.identity, mapObjectsRoot);
+            }
+        }
+
+        if (currentLevel.moveTraps != null)
+        {
+            foreach (MoveTrapData trap in currentLevel.moveTraps)
+            {
+                Instantiate(trapObstaclePrefab, GridToWorld(trap.startPosition), Quaternion.identity, mapObjectsRoot);
+            }
         }
 
         if (currentLevel.hasPortal)

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public bool canMove = false;
     public float tileSize = 1f;
     public Transform gridRoot;
+    public float objectCheckDistance = 0.15f;
     private GameManager gameManager;
 
     private List<Vector3> tileCenters = new List<Vector3>();
@@ -71,6 +72,11 @@ public class PlayerController : MonoBehaviour
 
     public void EnableMovement()
     {
+        if (tileCenters.Count == 0 && gridRoot != null)
+        {
+            InitializeGrid(gridRoot);
+        }
+
         canMove = true;
     }
 
@@ -85,9 +91,13 @@ public class PlayerController : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
+            if (Vector3.Distance(hit.transform.position, transform.position) > objectCheckDistance)
+                continue;
+
             if (hit.CompareTag("Obstacle"))
             {
                 gameManager.LoseLife();
+                return;
             }
 
             else if (hit.CompareTag("Key"))
@@ -95,6 +105,7 @@ public class PlayerController : MonoBehaviour
                 gameManager.GetKey();
 
                 hit.gameObject.SetActive(false);
+                return;
             }
 
             else if (hit.CompareTag("Heart"))
@@ -113,6 +124,7 @@ public class PlayerController : MonoBehaviour
             else if (hit.CompareTag("Goal"))
             {
                 gameManager.ReachGoal();
+                return;
             }
         }
     }

@@ -3,7 +3,17 @@ guid: f417d529cde324215afd98b7b7a87703
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tilePrefab: {fileID: 4475090241070853710, guid: 417cf8947e7af465589630df08bf8db5, type: 3}
+  - obstaclePrefab: {fileID: 6270764860067504487, guid: abf089d7369b04db5ad0c495d309f954, type: 3}
+  - keyPrefab: {fileID: 8722164706484013466, guid: 459c4bb9435654d93936d85f968f17bc, type: 3}
+  - goalPrefab: {fileID: 313829687995147949, guid: df844bc34e9354927b94a6cba669b3b8, type: 3}
+  - heartPrefab: {fileID: 6270764860067504487, guid: a04e378ef9d3c4c6aa3870e80b0306f1, type: 3}
+  - portalPrefab: {fileID: 8722164706484013466, guid: af5bdbf7a82bb43df9516cbab3e8bdd6, type: 3}
+  - playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
+  - gridRoot: {instanceID: 0}
+  - mapObjectsRoot: {instanceID: 0}
+  - spawnedPlayer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

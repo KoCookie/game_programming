@@ -32,7 +32,9 @@ MonoBehaviour:
   portalA: {x: 5, y: 4}
   portalB: {x: 0, y: 1}
   legendItems: 000000000100000002000000030000000400000005000000
-  observationTime: 8
+  observationTime: 5
   lives: 3
   viewMapUses: 1
   viewMapDuration: 3
+  spawnTraps: []
+  moveTraps: []

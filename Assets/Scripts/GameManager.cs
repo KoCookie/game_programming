@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
             trapManager.ActivateTraps();
 
         phaseText.text = "ACTION PHASE";
+        playerController = levelLoader.spawnedPlayer;
         playerController.EnableMovement();
 
         if (viewMapButton != null && viewMapUses > 0)

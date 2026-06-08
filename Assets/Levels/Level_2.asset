@@ -31,8 +31,13 @@ MonoBehaviour:
   - {x: 6, y: 4}
   heartPositions:
   - {x: 5, y: 4}
+  hasPortal: 0
+  portalA: {x: 0, y: 0}
+  portalB: {x: 0, y: 0}
   legendItems: 0000000001000000020000000300000005000000
-  observationTime: 8
+  observationTime: 5
   lives: 3
   viewMapUses: 1
   viewMapDuration: 3
+  spawnTraps: []
+  moveTraps: []

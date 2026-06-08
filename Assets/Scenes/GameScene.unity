@@ -298,10 +298,13 @@ MonoBehaviour:
   heartPrefab: {fileID: 6270764860067504487, guid: a04e378ef9d3c4c6aa3870e80b0306f1, type: 3}
   portalPrefab: {fileID: 8722164706484013466, guid: af5bdbf7a82bb43df9516cbab3e8bdd6, type: 3}
   trapObstaclePrefab: {fileID: 6270764860067504487, guid: c2d6f3c4a2a344e05bbd9e5222e8ff7a, type: 3}
+  memoryThiefPrefab: {fileID: 9134492154960835201, guid: 449735098905c49b6b977b2230e473c0, type: 3}
   playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
   gridRoot: {fileID: 1823568980}
   mapObjectsRoot: {fileID: 620217580}
   spawnedPlayer: {fileID: 0}
+  spawnedKey: {fileID: 0}
+  spawnedMemoryThief: {fileID: 0}
 --- !u!4 &165418698
 Transform:
   m_ObjectHideFlags: 0
@@ -990,7 +993,7 @@ MonoBehaviour:
   obstacleSprite: {fileID: 21300000, guid: f3f12ae1b17484943a8cc5fd4c322c63, type: 3}
   keySprite: {fileID: 21300000, guid: 943f670aedfd64ffb80ea24b02befde5, type: 3}
   goalSprite: {fileID: 21300000, guid: 6b500518b4cd942ec9bdbdcfaaedc6ce, type: 3}
-  portalSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  portalSprite: {fileID: 21300000, guid: 0e0c86a7898af4861a6b3969af48bfcb, type: 3}
   heartSprite: {fileID: 21300000, guid: fcca0fff735774a5c90fcde9cb7f0d39, type: 3}
   itemSpacing: 42
 --- !u!4 &450517662

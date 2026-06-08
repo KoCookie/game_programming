@@ -13,12 +13,15 @@ public class LevelLoader : MonoBehaviour
     public GameObject heartPrefab;
     public GameObject portalPrefab;
     public GameObject trapObstaclePrefab;
+    public GameObject memoryThiefPrefab;
     public GameObject playerPrefab;
 
     [Header("Scene Roots")]
     public Transform gridRoot;
     public Transform mapObjectsRoot;
     public PlayerController spawnedPlayer;
+    public GameObject spawnedKey;
+    public GameObject spawnedMemoryThief;
 
     private LevelData currentLevel;
 
@@ -94,8 +97,22 @@ public class LevelLoader : MonoBehaviour
             Instantiate(portalPrefab, GridToWorld(currentLevel.portalB), Quaternion.identity, mapObjectsRoot);
         }
 
-        Instantiate(keyPrefab, GridToWorld(currentLevel.keyPosition), Quaternion.identity, mapObjectsRoot);
+        spawnedKey = Instantiate(keyPrefab, GridToWorld(currentLevel.keyPosition), Quaternion.identity, mapObjectsRoot);
         Instantiate(goalPrefab, GridToWorld(currentLevel.goalPosition), Quaternion.identity, mapObjectsRoot);
+
+        if (currentLevel.memoryThief != null && currentLevel.memoryThief.enabled && memoryThiefPrefab != null)
+        {
+            spawnedMemoryThief = Instantiate(
+                memoryThiefPrefab,
+                GridToWorld(currentLevel.memoryThief.startPosition),
+                Quaternion.identity,
+                mapObjectsRoot
+            );
+        }
+        else
+        {
+            spawnedMemoryThief = null;
+        }
     }
 
     void PlacePlayer()

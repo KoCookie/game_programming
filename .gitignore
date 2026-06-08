@@ -5,10 +5,13 @@
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
 
 .vs/
 .vscode/
 .idea/
+.gradle/
 
 *.csproj
 *.sln
@@ -20,5 +23,18 @@
 *.pdb
 *.mdb
 *.app/
+*.apk
+*.aab
+*.unitypackage
 
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+mono_crash*.json
+sysinfo.txt
+
+*.tmp
+*.bak
+*.swp

@@ -35,9 +35,22 @@ public class GameManager : MonoBehaviour
     private bool gameEnded = false;
     public LegendManager legendManager;
     public TrapManager trapManager;
+    public MemoryThiefManager memoryThiefManager;
+    public bool HasKey => hasKey;
 
     void Start()
     {
+        if (memoryThiefManager == null)
+        {
+            memoryThiefManager = GetComponent<MemoryThiefManager>();
+
+            if (memoryThiefManager == null)
+                memoryThiefManager = gameObject.AddComponent<MemoryThiefManager>();
+        }
+
+        memoryThiefManager.levelLoader = levelLoader;
+        memoryThiefManager.gameManager = this;
+
         LevelData loadedLevel = levelLoader.LoadCurrentLevel();
         playerController = levelLoader.spawnedPlayer;
         legendManager.BuildLegend(loadedLevel);
@@ -85,6 +98,9 @@ public class GameManager : MonoBehaviour
         if (trapManager != null)
             trapManager.ActivateTraps();
 
+        if (memoryThiefManager != null)
+            memoryThiefManager.ActivateMemoryThief();
+
         phaseText.text = "ACTION PHASE";
         playerController = levelLoader.spawnedPlayer;
         playerController.EnableMovement();
@@ -128,6 +144,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ViewMapCoroutine()
     {
+        playerController.DisableMovement();
         ShowMapObjects();
 
         if (legendPanel != null)
@@ -146,6 +163,8 @@ public class GameManager : MonoBehaviour
         HideMapObjects();
         if (legendPanel != null)
             legendPanel.SetActive(false);
+
+        playerController.EnableMovement();
     }
 
     public void LoseLife()
@@ -165,6 +184,21 @@ public class GameManager : MonoBehaviour
 
         if (keyStatusIcon != null)
             keyStatusIcon.SetActive(true);
+    }
+
+    public void MemoryThiefAteKey()
+    {
+        if (gameEnded || hasKey) return;
+
+        if (levelLoader.spawnedKey != null)
+            levelLoader.spawnedKey.SetActive(false);
+
+        gameEnded = true;
+        phaseText.text = "KEY STOLEN";
+        playerController.DisableMovement();
+
+        if (losePanel != null)
+            losePanel.SetActive(true);
     }
 
     public void ReachGoal()

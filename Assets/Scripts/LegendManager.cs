@@ -13,6 +13,7 @@ public class LegendManager : MonoBehaviour
     public Sprite goalSprite;
     public Sprite portalSprite;
     public Sprite heartSprite;
+    public Sprite memoryThiefSprite;
 
     public float itemSpacing = 42f;
 
@@ -53,6 +54,7 @@ public class LegendManager : MonoBehaviour
             case LegendItemType.Goal: return goalSprite;
             case LegendItemType.Portal: return portalSprite;
             case LegendItemType.Heart: return heartSprite;
+            case LegendItemType.MemoryThief: return memoryThiefSprite;
             default: return null;
         }
     }
@@ -67,6 +69,7 @@ public class LegendManager : MonoBehaviour
             case LegendItemType.Goal: return "GOAL";
             case LegendItemType.Portal: return "PORTAL";
             case LegendItemType.Heart: return "LIFE";
+            case LegendItemType.MemoryThief: return "THIEF";
             default: return "";
         }
     }
@@ -91,6 +94,9 @@ public class LegendManager : MonoBehaviour
 
             case LegendItemType.Heart:
                 return new Color(1f, 0.4f, 0.8f);
+
+            case LegendItemType.MemoryThief:
+                return new Color(0.75f, 0.35f, 1f);
 
             default:
                 return Color.white;

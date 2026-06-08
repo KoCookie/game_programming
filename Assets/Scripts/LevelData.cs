@@ -7,7 +7,8 @@ public enum LegendItemType
     Key,
     Goal,
     Portal,
-    Heart
+    Heart,
+    MemoryThief
 }
 
 [System.Serializable]
@@ -21,6 +22,15 @@ public class MoveTrapData
 {
     public Vector2Int startPosition;
     public Vector2Int endPosition;
+}
+
+[System.Serializable]
+public class MemoryThiefData
+{
+    public bool enabled = false;
+    public Vector2Int startPosition;
+    public Vector2Int[] pathToKey;
+    public float moveInterval = 1.2f;
 }
 
 [CreateAssetMenu(fileName = "LevelData", menuName = "Afterimage/Level Data")]
@@ -51,4 +61,6 @@ public class LevelData : ScriptableObject
 
     public SpawnTrapData[] spawnTraps;
     public MoveTrapData[] moveTraps;
+
+    public MemoryThiefData memoryThief;
 }

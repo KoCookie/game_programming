@@ -12,21 +12,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_6
   m_EditorClassIdentifier: 
-  levelNumber: 0
-  width: 7
-  height: 5
+  showIntro: 1
+  introTitle: LEVEL 6 - KEY THIEF
+  introBody: "The thief moves toward the key during the action phase.\nReach the key before the thief eats it.\nFast memory and route planning matter here."
+  levelNumber: 6
+  width: 8
+  height: 6
   playerStart: {x: 0, y: 0}
-  keyPosition: {x: 0, y: 0}
-  goalPosition: {x: 0, y: 0}
-  obstaclePositions: []
-  heartPositions: []
-  hasPortal: 0
-  portalA: {x: 0, y: 0}
-  portalB: {x: 0, y: 0}
-  legendItems: 
-  observationTime: 5
+  keyPosition: {x: 7, y: 5}
+  goalPosition: {x: 0, y: 5}
+  obstaclePositions:
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}
+  - {x: 3, y: 0}
+  - {x: 4, y: 0}
+  - {x: 6, y: 0}
+  - {x: 2, y: 1}
+  - {x: 3, y: 1}
+  - {x: 7, y: 1}
+  - {x: 1, y: 2}
+  - {x: 2, y: 2}
+  - {x: 3, y: 2}
+  - {x: 4, y: 2}
+  - {x: 5, y: 2}
+  - {x: 1, y: 3}
+  - {x: 3, y: 3}
+  - {x: 4, y: 3}
+  - {x: 5, y: 3}
+  - {x: 1, y: 4}
+  - {x: 2, y: 4}
+  - {x: 3, y: 4}
+  - {x: 5, y: 4}
+  - {x: 1, y: 5}
+  - {x: 2, y: 5}
+  - {x: 3, y: 5}
+  heartPositions:
+  - {x: 0, y: 4}
+  hasPortal: 1
+  portalA: {x: 1, y: 1}
+  portalB: {x: 4, y: 1}
+  legendItems: 00000000010000000200000003000000040000000500000006000000
+  observationTime: 6
   lives: 3
   viewMapUses: 1
   viewMapDuration: 3
   spawnTraps: []
-  moveTraps: []
+  moveTraps:
+  - startPosition: {x: 5, y: 0}
+    endPosition: {x: 7, y: 3}
+  memoryThief:
+    enabled: 1
+    startPosition: {x: 4, y: 5}
+    pathToKey:
+    - {x: 5, y: 5}
+    - {x: 6, y: 5}
+    - {x: 7, y: 5}
+    moveInterval: 1.8

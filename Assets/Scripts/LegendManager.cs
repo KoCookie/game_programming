@@ -37,7 +37,7 @@ public class LegendManager : MonoBehaviour
             TMP_Text label = entry.transform.Find("Label").GetComponent<TMP_Text>();
 
             icon.sprite = GetSprite(item);
-            icon.color = GetColor(item);
+            icon.color = Color.white;
 
             label.text = GetLabel(item);
             label.color = Color.white;
@@ -71,35 +71,6 @@ public class LegendManager : MonoBehaviour
             case LegendItemType.Heart: return "LIFE";
             case LegendItemType.MemoryThief: return "THIEF";
             default: return "";
-        }
-    }
-    Color GetColor(LegendItemType item)
-    {
-        switch (item)
-        {
-            case LegendItemType.Player:
-                return new Color(0f, 0.7f, 1f);
-
-            case LegendItemType.Obstacle:
-                return Color.red;
-
-            case LegendItemType.Key:
-                return Color.yellow;
-
-            case LegendItemType.Goal:
-                return Color.green;
-
-            case LegendItemType.Portal:
-                return new Color(0.6f, 0f, 1f);
-
-            case LegendItemType.Heart:
-                return new Color(1f, 0.4f, 0.8f);
-
-            case LegendItemType.MemoryThief:
-                return new Color(0.75f, 0.35f, 1f);
-
-            default:
-                return Color.white;
         }
     }
 }

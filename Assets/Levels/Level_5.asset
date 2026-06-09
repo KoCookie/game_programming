@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_5
   m_EditorClassIdentifier: 
+  showIntro: 1
+  introTitle: LEVEL 5 - MOVING TRAPS
+  introBody: "Some traps move after observation and then become hidden.\nMemorize both where they start and where they stop.\nPlan your route around the final position."
   levelNumber: 5
   width: 8
   height: 6

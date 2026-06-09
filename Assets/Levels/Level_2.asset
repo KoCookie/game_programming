@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_2
   m_EditorClassIdentifier: 
+  showIntro: 1
+  introTitle: LEVEL 2 - LIVES
+  introBody: "You have limited lives.\nObstacles cost 1 life when stepped on.\nHearts restore 1 life, so remember where they are."
   levelNumber: 2
   width: 7
   height: 5

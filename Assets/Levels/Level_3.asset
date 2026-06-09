@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_3
   m_EditorClassIdentifier: 
+  showIntro: 1
+  introTitle: LEVEL 3 - PORTALS
+  introBody: "Portals move you between two linked tiles.\nRemember both portal positions before the map disappears.\nA portal can be a shortcut or a trap depending on your route."
   levelNumber: 3
   width: 7
   height: 5

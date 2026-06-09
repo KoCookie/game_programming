@@ -9,6 +9,7 @@ TagManager:
   - Goal
   - Heart
   - Portal
+  - MemoryThief
   layers:
   - Default
   - TransparentFX

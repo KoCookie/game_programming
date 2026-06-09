@@ -19,15 +19,18 @@ public class LevelLoader : MonoBehaviour
     [Header("Scene Roots")]
     public Transform gridRoot;
     public Transform mapObjectsRoot;
+    public float boardVerticalOffset = -0.45f;
     public PlayerController spawnedPlayer;
     public GameObject spawnedKey;
     public GameObject spawnedMemoryThief;
 
     private LevelData currentLevel;
+    private bool mirrorApplied = false;
 
     public LevelData LoadCurrentLevel()
     {
         currentLevel = levels[LevelManager.selectedLevel - 1];
+        mirrorApplied = false;
 
         ClearLevel();
         GenerateGrid();
@@ -59,7 +62,7 @@ public class LevelLoader : MonoBehaviour
         {
             for (int y = 0; y < currentLevel.height; y++)
             {
-                Vector3 position = new Vector3(offsetX + x, offsetY + y, 0);
+                Vector3 position = new Vector3(offsetX + x, offsetY + y + boardVerticalOffset, 0);
                 Instantiate(tilePrefab, position, Quaternion.identity, gridRoot);
             }
         }
@@ -129,10 +132,42 @@ public class LevelLoader : MonoBehaviour
 
     public Vector3 GridToWorld(Vector2Int gridPosition)
     {
+        if (mirrorApplied)
+        {
+            gridPosition = MirrorGridPosition(gridPosition);
+        }
+
         float offsetX = -(currentLevel.width - 1) / 2f;
         float offsetY = -(currentLevel.height - 1) / 2f;
 
-        return new Vector3(offsetX + gridPosition.x, offsetY + gridPosition.y, 0);
+        return new Vector3(offsetX + gridPosition.x, offsetY + gridPosition.y + boardVerticalOffset, 0);
+    }
+
+    public Vector2Int MirrorGridPosition(Vector2Int gridPosition)
+    {
+        if (currentLevel == null)
+            return gridPosition;
+
+        if (currentLevel.mirrorMode == MirrorMode.Horizontal)
+            return new Vector2Int(currentLevel.width - 1 - gridPosition.x, gridPosition.y);
+
+        return new Vector2Int(gridPosition.x, currentLevel.height - 1 - gridPosition.y);
+    }
+
+    public Vector3 MirrorWorldPosition(Vector3 position)
+    {
+        if (currentLevel == null)
+            return position;
+
+        if (currentLevel.mirrorMode == MirrorMode.Horizontal)
+            return new Vector3(-position.x, position.y, position.z);
+
+        return new Vector3(position.x, 2f * boardVerticalOffset - position.y, position.z);
+    }
+
+    public void SetMirrorApplied(bool applied)
+    {
+        mirrorApplied = applied;
     }
 
     public LevelData GetCurrentLevel()

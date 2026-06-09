@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2e1cc70eda46369226d5a8942ea7e, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
+  showIntro: 1
+  introTitle: LEVEL 1 - BASIC MEMORY
+  introBody: "Observe the map, then move after it disappears.\nCollect the key first, then reach the goal.\nUse WASD or arrow keys to move."
   levelNumber: 1
   width: 7
   height: 5

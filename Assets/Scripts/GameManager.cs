@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public LegendManager legendManager;
     public TrapManager trapManager;
     public MemoryThiefManager memoryThiefManager;
+    public GateBlockerManager gateBlockerManager;
     public MirrorManager mirrorManager;
     public bool HasKey => hasKey;
 
@@ -65,9 +66,19 @@ public class GameManager : MonoBehaviour
                 memoryThiefManager = gameObject.AddComponent<MemoryThiefManager>();
         }
 
+        if (gateBlockerManager == null)
+        {
+            gateBlockerManager = GetComponent<GateBlockerManager>();
+
+            if (gateBlockerManager == null)
+                gateBlockerManager = gameObject.AddComponent<GateBlockerManager>();
+        }
+
         mirrorManager.levelLoader = levelLoader;
         memoryThiefManager.levelLoader = levelLoader;
         memoryThiefManager.gameManager = this;
+        gateBlockerManager.levelLoader = levelLoader;
+        gateBlockerManager.gameManager = this;
 
         loadedLevel = levelLoader.LoadCurrentLevel();
         playerController = levelLoader.spawnedPlayer;
@@ -279,6 +290,9 @@ public class GameManager : MonoBehaviour
         if (memoryThiefManager != null)
             memoryThiefManager.ActivateMemoryThief();
 
+        if (gateBlockerManager != null)
+            gateBlockerManager.ActivateGateBlocker();
+
         phaseText.text = "ACTION PHASE";
         playerController = levelLoader.spawnedPlayer;
         playerController.EnableMovement();
@@ -373,6 +387,26 @@ public class GameManager : MonoBehaviour
 
         gameEnded = true;
         phaseText.text = "KEY STOLEN";
+        playerController.DisableMovement();
+
+        if (losePanel != null)
+            losePanel.SetActive(true);
+    }
+
+    public void OnPlayerMovedOneStep()
+    {
+        if (gameEnded) return;
+
+        if (gateBlockerManager != null)
+            gateBlockerManager.AdvanceOneStep();
+    }
+
+    public void GateBlockerReachedGoal()
+    {
+        if (gameEnded) return;
+
+        gameEnded = true;
+        phaseText.text = "GOAL BLOCKED";
         playerController.DisableMovement();
 
         if (losePanel != null)

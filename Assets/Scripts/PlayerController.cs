@@ -10,7 +10,11 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
 
     private List<Vector3> tileCenters = new List<Vector3>();
+    private Dictionary<Vector3, SpriteRenderer> tileRenderers = new Dictionary<Vector3, SpriteRenderer>();
+    private HashSet<Vector3> disappearedTileCenters = new HashSet<Vector3>();
     private Vector3 currentTileCenter;
+    private bool disappearingTilesEnabled;
+    private float disappearedTileAlpha = 0.18f;
 
     void Start()
     {
@@ -39,15 +43,22 @@ public class PlayerController : MonoBehaviour
 
     void TryMove(Vector3 direction)
     {
+        Vector3 previousTileCenter = currentTileCenter;
         Vector3 targetPosition = currentTileCenter + direction * tileSize;
         Vector3 closestTile = FindClosestTile(targetPosition);
 
-        if (Vector3.Distance(targetPosition, closestTile) < 0.15f)
+        if (Vector3.Distance(targetPosition, closestTile) < 0.15f && !disappearedTileCenters.Contains(closestTile))
         {
             currentTileCenter = closestTile;
             transform.position = currentTileCenter;
 
             CheckTileObject();
+
+            if (disappearingTilesEnabled)
+                DisappearTile(previousTileCenter);
+
+            if (gameManager != null)
+                gameManager.OnPlayerMovedOneStep();
         }
     }
 
@@ -132,18 +143,59 @@ public class PlayerController : MonoBehaviour
     {
         gridRoot = newGridRoot;
         tileCenters.Clear();
+        tileRenderers.Clear();
+        disappearedTileCenters.Clear();
 
         foreach (Transform tile in gridRoot)
         {
             tileCenters.Add(tile.position);
+
+            SpriteRenderer tileRenderer = tile.GetComponent<SpriteRenderer>();
+            if (tileRenderer != null)
+            {
+                tileRenderer.color = new Color(
+                    tileRenderer.color.r,
+                    tileRenderer.color.g,
+                    tileRenderer.color.b,
+                    1f
+                );
+                tileRenderers[tile.position] = tileRenderer;
+            }
         }
 
         currentTileCenter = FindClosestTile(transform.position);
         transform.position = currentTileCenter;
     }
+
+    public void ConfigureDisappearingTiles(bool enabled, float fadedAlpha)
+    {
+        disappearingTilesEnabled = enabled;
+        disappearedTileAlpha = Mathf.Clamp01(fadedAlpha);
+    }
+
+    void DisappearTile(Vector3 tileCenter)
+    {
+        if (disappearedTileCenters.Contains(tileCenter))
+            return;
+
+        disappearedTileCenters.Add(tileCenter);
+
+        if (tileRenderers.TryGetValue(tileCenter, out SpriteRenderer tileRenderer))
+        {
+            Color color = tileRenderer.color;
+            color.a = disappearedTileAlpha;
+            tileRenderer.color = color;
+        }
+    }
+
     public void TeleportTo(Vector3 targetPosition)
     {
-        currentTileCenter = FindClosestTile(targetPosition);
+        Vector3 closestTile = FindClosestTile(targetPosition);
+
+        if (disappearingTilesEnabled && disappearedTileCenters.Contains(closestTile))
+            return;
+
+        currentTileCenter = closestTile;
         transform.position = currentTileCenter;
     }
 }

@@ -8,7 +8,8 @@ public enum LegendItemType
     Goal,
     Portal,
     Heart,
-    MemoryThief
+    MemoryThief,
+    GateBlocker
 }
 
 public enum MirrorMode
@@ -37,6 +38,15 @@ public class MemoryThiefData
     public Vector2Int startPosition;
     public Vector2Int[] pathToKey;
     public float moveInterval = 1.2f;
+}
+
+[System.Serializable]
+public class GateBlockerData
+{
+    public bool enabled = false;
+    public Vector2Int startPosition;
+    public Vector2Int[] pathToGoal;
+    public float moveDuration = 0.25f;
 }
 
 [CreateAssetMenu(fileName = "LevelData", menuName = "Afterimage/Level Data")]
@@ -71,6 +81,11 @@ public class LevelData : ScriptableObject
     public int viewMapUses = 1;
     public float viewMapDuration = 3f;
 
+    [Header("Disappearing Tile Mechanic")]
+    public bool disappearingTilesEnabled = false;
+    [Range(0f, 1f)]
+    public float disappearedTileAlpha = 0.18f;
+
     [Header("Mirror Mechanic")]
     public bool mirrorAtEndOfObservation = false;
     public MirrorMode mirrorMode = MirrorMode.Horizontal;
@@ -80,4 +95,5 @@ public class LevelData : ScriptableObject
     public MoveTrapData[] moveTraps;
 
     public MemoryThiefData memoryThief;
+    public GateBlockerData gateBlocker;
 }

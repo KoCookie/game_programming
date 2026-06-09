@@ -503,6 +503,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3a0901afc06e46b1834adaf79c2defe, type: 2}
   - {fileID: 11400000, guid: ff38800d502b64da886a21caf1d6d920, type: 2}
   - {fileID: 11400000, guid: cfdd8e67f715349d4ba1e65b46f4443b, type: 2}
+  - {fileID: 11400000, guid: 7f8b3bc103a5b4f1d86ad70848a76aca, type: 2}
+  - {fileID: 11400000, guid: 5b604176cf0864ec38512725275c3348, type: 2}
+  - {fileID: 11400000, guid: ce983f96d73ab400aa3baa3c8e5ffc8d, type: 2}
   tilePrefab: {fileID: 4475090241070853710, guid: 417cf8947e7af465589630df08bf8db5, type: 3}
   obstaclePrefab: {fileID: 6270764860067504487, guid: abf089d7369b04db5ad0c495d309f954, type: 3}
   keyPrefab: {fileID: 8722164706484013466, guid: 459c4bb9435654d93936d85f968f17bc, type: 3}
@@ -511,6 +514,7 @@ MonoBehaviour:
   portalPrefab: {fileID: 8722164706484013466, guid: af5bdbf7a82bb43df9516cbab3e8bdd6, type: 3}
   trapObstaclePrefab: {fileID: 6270764860067504487, guid: c2d6f3c4a2a344e05bbd9e5222e8ff7a, type: 3}
   memoryThiefPrefab: {fileID: 9134492154960835201, guid: 449735098905c49b6b977b2230e473c0, type: 3}
+  gateBlockerPrefab: {fileID: 9134492154960835201, guid: e74edd3ae990546c98eb63035481d76f, type: 3}
   playerPrefab: {fileID: 9134492154960835201, guid: b7052587769694ba299b63a1843ced76, type: 3}
   gridRoot: {fileID: 1823568980}
   mapObjectsRoot: {fileID: 620217580}
@@ -518,6 +522,7 @@ MonoBehaviour:
   spawnedPlayer: {fileID: 0}
   spawnedKey: {fileID: 0}
   spawnedMemoryThief: {fileID: 0}
+  spawnedGateBlocker: {fileID: 0}
 --- !u!4 &165418698
 Transform:
   m_ObjectHideFlags: 0
@@ -1331,6 +1336,7 @@ MonoBehaviour:
   portalSprite: {fileID: 21300000, guid: 0e0c86a7898af4861a6b3969af48bfcb, type: 3}
   heartSprite: {fileID: 21300000, guid: fcca0fff735774a5c90fcde9cb7f0d39, type: 3}
   memoryThiefSprite: {fileID: 21300000, guid: 58713a820eb6949219b7413d56533898, type: 3}
+  gateBlockerSprite: {fileID: 21300000, guid: f499c6f918be14a8dbf5a747fa56db15, type: 3}
   itemSpacing: 42
 --- !u!4 &450517662
 Transform:
@@ -4252,6 +4258,7 @@ MonoBehaviour:
   legendManager: {fileID: 450517661}
   trapManager: {fileID: 338991404}
   memoryThiefManager: {fileID: 995088379}
+  gateBlockerManager: {fileID: 0}
   mirrorManager: {fileID: 0}
 --- !u!1 &1971501820
 GameObject:

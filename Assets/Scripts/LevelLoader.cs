@@ -14,6 +14,7 @@ public class LevelLoader : MonoBehaviour
     public GameObject portalPrefab;
     public GameObject trapObstaclePrefab;
     public GameObject memoryThiefPrefab;
+    public GameObject gateBlockerPrefab;
     public GameObject playerPrefab;
 
     [Header("Scene Roots")]
@@ -23,6 +24,7 @@ public class LevelLoader : MonoBehaviour
     public PlayerController spawnedPlayer;
     public GameObject spawnedKey;
     public GameObject spawnedMemoryThief;
+    public GameObject spawnedGateBlocker;
 
     private LevelData currentLevel;
     private bool mirrorApplied = false;
@@ -116,6 +118,20 @@ public class LevelLoader : MonoBehaviour
         {
             spawnedMemoryThief = null;
         }
+
+        if (currentLevel.gateBlocker != null && currentLevel.gateBlocker.enabled && gateBlockerPrefab != null)
+        {
+            spawnedGateBlocker = Instantiate(
+                gateBlockerPrefab,
+                GridToWorld(currentLevel.gateBlocker.startPosition),
+                Quaternion.identity,
+                mapObjectsRoot
+            );
+        }
+        else
+        {
+            spawnedGateBlocker = null;
+        }
     }
 
     void PlacePlayer()
@@ -128,6 +144,10 @@ public class LevelLoader : MonoBehaviour
 
         spawnedPlayer = playerObject.GetComponent<PlayerController>();
         spawnedPlayer.InitializeGrid(gridRoot);
+        spawnedPlayer.ConfigureDisappearingTiles(
+            currentLevel.disappearingTilesEnabled,
+            currentLevel.disappearedTileAlpha
+        );
     }
 
     public Vector3 GridToWorld(Vector2Int gridPosition)

@@ -63,7 +63,8 @@ public class MirrorManager : MonoBehaviour
                 || child.CompareTag("Goal")
                 || child.CompareTag("Heart")
                 || child.CompareTag("Portal")
-                || child.CompareTag("MemoryThief"))
+                || child.CompareTag("MemoryThief")
+                || child.CompareTag("GateBlocker"))
             {
                 results.Add(child);
             }

@@ -14,6 +14,7 @@ public class LegendManager : MonoBehaviour
     public Sprite portalSprite;
     public Sprite heartSprite;
     public Sprite memoryThiefSprite;
+    public Sprite gateBlockerSprite;
 
     public float itemSpacing = 42f;
 
@@ -55,6 +56,7 @@ public class LegendManager : MonoBehaviour
             case LegendItemType.Portal: return portalSprite;
             case LegendItemType.Heart: return heartSprite;
             case LegendItemType.MemoryThief: return memoryThiefSprite;
+            case LegendItemType.GateBlocker: return gateBlockerSprite;
             default: return null;
         }
     }
@@ -70,6 +72,7 @@ public class LegendManager : MonoBehaviour
             case LegendItemType.Portal: return "PORTAL";
             case LegendItemType.Heart: return "LIFE";
             case LegendItemType.MemoryThief: return "THIEF";
+            case LegendItemType.GateBlocker: return "BLOCKER";
             default: return "";
         }
     }

@@ -200,4 +200,8 @@ public class LevelSelect : MonoBehaviour
     {
         LoadLevel(10);
     }
+    public void LoadLevel11()
+    {
+        LoadLevel(11);
+    }
 }

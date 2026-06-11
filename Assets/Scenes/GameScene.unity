@@ -506,6 +506,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f8b3bc103a5b4f1d86ad70848a76aca, type: 2}
   - {fileID: 11400000, guid: 5b604176cf0864ec38512725275c3348, type: 2}
   - {fileID: 11400000, guid: ce983f96d73ab400aa3baa3c8e5ffc8d, type: 2}
+  - {fileID: 11400000, guid: 2f46017dcf8594f2dbdb9b49c3983176, type: 2}
   tilePrefab: {fileID: 4475090241070853710, guid: 417cf8947e7af465589630df08bf8db5, type: 3}
   obstaclePrefab: {fileID: 6270764860067504487, guid: abf089d7369b04db5ad0c495d309f954, type: 3}
   keyPrefab: {fileID: 8722164706484013466, guid: 459c4bb9435654d93936d85f968f17bc, type: 3}

@@ -44,12 +44,11 @@ MonoBehaviour:
   - {x: 5, y: 6}
   - {x: 6, y: 6}
   - {x: 7, y: 6}
-  - {x: 8, y: 6}
   heartPositions: []
   hasPortal: 1
   portalA: {x: 5, y: 0}
   portalB: {x: 7, y: 5}
-  legendItems: 0000000001000000020000000300000004000000
+  legendItems: 000000000100000002000000030000000400000007000000
   observationTime: 8
   lives: 3
   viewMapUses: 1
@@ -70,7 +69,28 @@ MonoBehaviour:
     pathToKey: []
     moveInterval: 1.2
   gateBlocker:
-    enabled: 0
-    startPosition: {x: 0, y: 0}
-    pathToGoal: []
+    enabled: 1
+    startPosition: {x: 8, y: 6}
+    pathToGoal:
+    - {x: 8, y: 5}
+    - {x: 7, y: 5}
+    - {x: 6, y: 5}
+    - {x: 5, y: 5}
+    - {x: 4, y: 5}
+    - {x: 3, y: 5}
+    - {x: 2, y: 5}
+    - {x: 1, y: 5}
+    - {x: 0, y: 5}
+    - {x: 0, y: 4}
+    - {x: 1, y: 4}
+    - {x: 2, y: 4}
+    - {x: 3, y: 4}
+    - {x: 4, y: 4}
+    - {x: 4, y: 3}
+    - {x: 4, y: 2}
+    - {x: 3, y: 2}
+    - {x: 2, y: 2}
+    - {x: 2, y: 1}
+    - {x: 1, y: 1}
+    - {x: 0, y: 1}
     moveDuration: 0.25

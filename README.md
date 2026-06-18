@@ -63,6 +63,7 @@ Unity-generated folders such as `Library/`, `Temp/`, `Logs/`, `Obj/`, and local 
 - [User Guide](docs/USER_GUIDE.md)
 - [Development Log](docs/DEVELOPMENT_LOG.md)
 - [Asset Credits](docs/ASSET_CREDITS.md)
+- [Professionalism Evidence](docs/professionalism/README.md)
 
 ## Notes
 

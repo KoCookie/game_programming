@@ -18,6 +18,15 @@ public class GameManager : MonoBehaviour
     public GameObject lifeIconPrefab;
     private GameObject[] lifeIcons;
 
+    [Header("Responsive Layout")]
+    public Camera gameCamera;
+    public float targetBoardHeightRatio = 0.56f;
+    public float targetBoardWidthRatio = 0.62f;
+    public float minCameraSize = 5.3f;
+    public float hudTopMargin = 112f;
+    public float sideControlMargin = 300f;
+    public float viewMapBottomMargin = 125f;
+
     [Header("Intro UI")]
     public GameObject introPanel;
     public TMP_Text introTitleText;
@@ -81,8 +90,15 @@ public class GameManager : MonoBehaviour
         gateBlockerManager.gameManager = this;
 
         loadedLevel = levelLoader.LoadCurrentLevel();
+        ConfigureCameraForLevel(loadedLevel);
         playerController = levelLoader.spawnedPlayer;
-        legendManager.BuildLegend(loadedLevel);
+        ConfigureGameUILayout();
+
+        if (legendManager != null)
+        {
+            legendManager.BuildLegend(loadedLevel);
+            legendManager.ConfigureResponsiveLayout(loadedLevel, levelLoader);
+        }
 
         observationTime = loadedLevel.observationTime;
         lives = loadedLevel.lives;
@@ -106,11 +122,112 @@ public class GameManager : MonoBehaviour
 
         CreateLifeIcons();
         UpdateLifeUI();
+        SetLifePanelVisible(false);
 
         if (loadedLevel.showIntro)
             ShowIntroPanel(loadedLevel);
         else
             StartCoroutine(ObservationPhase());
+    }
+
+    void ConfigureCameraForLevel(LevelData level)
+    {
+        if (level == null)
+            return;
+
+        if (gameCamera == null)
+            gameCamera = Camera.main;
+
+        if (gameCamera == null)
+            return;
+
+        float aspect = Mathf.Max(0.1f, gameCamera.aspect);
+        float heightSize = level.height / (2f * Mathf.Max(0.1f, targetBoardHeightRatio));
+        float widthSize = level.width / (2f * aspect * Mathf.Max(0.1f, targetBoardWidthRatio));
+
+        gameCamera.orthographicSize = Mathf.Max(minCameraSize, heightSize, widthSize);
+
+        Vector3 cameraPosition = gameCamera.transform.position;
+        cameraPosition.x = 0f;
+        cameraPosition.y = levelLoader != null ? levelLoader.boardVerticalOffset : 0f;
+        gameCamera.transform.position = cameraPosition;
+    }
+
+    void ConfigureGameUILayout()
+    {
+        RectTransform pauseRect = FindUIRect("PauseButton");
+        SetTopLeft(pauseRect, sideControlMargin, hudTopMargin);
+
+        if (phaseText != null)
+        {
+            SetTopCenter(phaseText.rectTransform, 0f, hudTopMargin);
+            phaseText.fontSize = Mathf.Max(56f, phaseText.fontSize);
+        }
+
+        RectTransform keyRect = keyStatusIcon != null ? keyStatusIcon.GetComponent<RectTransform>() : null;
+        SetTopRight(keyRect, 620f, hudTopMargin);
+
+        RectTransform lifeRect = lifePanel as RectTransform;
+        SetTopRight(lifeRect, 500f, hudTopMargin);
+
+        if (timerText != null)
+        {
+            SetTopRight(timerText.rectTransform, sideControlMargin, hudTopMargin);
+            timerText.fontSize = Mathf.Max(56f, timerText.fontSize);
+        }
+
+        RectTransform viewMapRect = viewMapButton != null ? viewMapButton.GetComponent<RectTransform>() : null;
+        SetBottomRight(viewMapRect, sideControlMargin, viewMapBottomMargin);
+    }
+
+    RectTransform FindUIRect(string objectName)
+    {
+        GameObject target = GameObject.Find(objectName);
+        return target != null ? target.GetComponent<RectTransform>() : null;
+    }
+
+    void SetTopLeft(RectTransform rect, float x, float y)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(x, -y);
+    }
+
+    void SetTopCenter(RectTransform rect, float x, float y)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0.5f, 1f);
+        rect.anchorMax = new Vector2(0.5f, 1f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(x, -y);
+    }
+
+    void SetTopRight(RectTransform rect, float x, float y)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(1f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(-x, -y);
+    }
+
+    void SetBottomRight(RectTransform rect, float x, float y)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(1f, 0f);
+        rect.anchorMax = new Vector2(1f, 0f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(-x, y);
     }
 
     void ShowIntroPanel(LevelData level)
@@ -256,6 +373,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ObservationPhase()
     {
         playerController.DisableMovement();
+        SetLifePanelVisible(false);
         phaseText.text = "OBSERVATION PHASE";
 
         LevelData level = levelLoader.GetCurrentLevel();
@@ -294,6 +412,8 @@ public class GameManager : MonoBehaviour
             gateBlockerManager.ActivateGateBlocker();
 
         phaseText.text = "ACTION PHASE";
+        SetLifePanelVisible(true);
+        UpdateLifeUI();
         playerController = levelLoader.spawnedPlayer;
         playerController.EnableMovement();
 
@@ -449,6 +569,12 @@ public class GameManager : MonoBehaviour
                 iconImage.enabled = i < lives;
             }
         }
+    }
+
+    void SetLifePanelVisible(bool visible)
+    {
+        if (lifePanel != null)
+            lifePanel.gameObject.SetActive(visible);
     }
 
     public void RestartLevel()
